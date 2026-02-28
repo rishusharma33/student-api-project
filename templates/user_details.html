@@ -4,16 +4,13 @@
     <title>User Detail</title>
 </head>
 <body>
+    <h2>User Details</h2>
 
-<h2>User Detail</h2>
+    <p><strong>ID:</strong> {{ user.id }}</p>
+    <p><strong>Name:</strong> {{ user.name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Role:</strong> {{ user.role }}</p>
 
-<p><strong>ID:</strong> {{ user.id }}</p>
-<p><strong>Name:</strong> {{ user.name }}</p>
-<p><strong>Email:</strong> {{ user.email }}</p>
-<p><strong>Role:</strong> {{ user.role }}</p>
-
-<br>
-<a href="/users">Back to Users</a>
-
+    <a href="/users">Back to Users</a>
 </body>
 </html>
