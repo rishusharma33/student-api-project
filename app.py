@@ -1,28 +1,29 @@
+import os
+print(os.getcwd())
+
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder="templates")
 
-# Database connection
 def get_db_connection():
     connection = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="root123@",  # 🔴 change this
+        password="root123@", 
         database="users_db"
     )
     return connection
 
-
-# 1️⃣ Hello Route
+#Hello Route
 @app.route('/hello')
 def hello():
     return "Hello World!"
 
 
-# 2️⃣ Show all users
+#Show all users
 @app.route('/users')
-def users():
+def user():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     
@@ -35,7 +36,7 @@ def users():
     return render_template('users.html', users=all_users)
 
 
-# 3️⃣ Add user
+#Add user
 @app.route('/users/add', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':
@@ -55,12 +56,12 @@ def add_user():
         cursor.close()
         conn.close()
         
-        return redirect(url_for('users'))
+        return redirect(url_for('user'))
     
     return render_template('add_user.html')
 
 
-# 4️⃣ User by ID
+#User by ID
 @app.route('/users/<int:user_id>')
 def user_detail(user_id):
     conn = get_db_connection()
@@ -76,6 +77,10 @@ def user_detail(user_id):
         return render_template('user_detail.html', user=user)
     else:
         return "User not found", 404
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
 
 if __name__ == '__main__':
